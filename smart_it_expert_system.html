@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart IT Technical Support Expert System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #F7F7F2;
+  --bg-strong: #F1F1EB;
+  --surface:   #FFFFFF;
+  --surface2:  #F4F4EF;
+  --surface3:  #F9F9F6;
+  --border:    #E6E6DE;
+  --border2:   #DADACF;
+  --text:      #111210;
+  --text2:     #4B4E47;
+  --text3:     #72766E;
+  --brand:     #C6F432;
+  --brand-strong:#3D7A00;
+  --brand-soft:#F1FCCF;
+  --brand-lt:  #F4FCE9;
+  --brand-mid: #D6F59C;
+  --cyan:      #33D7FF;
+  --cyan-lt:   #EAFEFF;
+  --purple:    #8C6BFF;
+  --purple-lt: #F2ECFF;
+  --blue:      #2F6BFF;
+  --blue-lt:   #EAF1FF;
+  --pink:      #FF6AC1;
+  --pink-lt:   #FFE9F7;
+  --green:     #00C758;
+  --green-lt:  #DCFCE7;
+  --amber:     #F59E0B;
+  --amber-lt:  #FFF7D8;
+  --red:       #FB2C36;
+  --red-lt:    #FFE2E2;
+  --red-border:#FFCACA;
+  --shadow-sm: 0 1px 2px rgba(17,18,16,0.04), 0 8px 18px rgba(17,18,16,0.04);
+  --shadow:    0 16px 30px rgba(17,18,16,0.08), 0 3px 12px rgba(17,18,16,0.04);
+  --r:         22px;
+  --r-sm:      14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Bricolage Grotesque', 'Geist', 'Manrope', 'Inter', system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(140, 107, 255, 0.14), transparent 22%),
+    radial-gradient(circle at top right, rgba(51, 215, 255, 0.14), transparent 21%),
+    radial-gradient(circle at bottom left, rgba(198, 244, 50, 0.14), transparent 18%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── LAYOUT ── */
+.app { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 36px 40px;
+  max-width: 980px;
+}
+
+/* ── SIDEBAR ── */
+.logo {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--purple) 100%);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 10px 18px rgba(35, 101, 245, 0.25);
+}
+.logo-icon svg { width: 18px; height: 18px; }
+.logo-title { font-size: 13.5px; font-weight: 800; color: var(--text); line-height: 1.3; }
+.logo-sub { font-size: 11px; color: var(--text3); margin-top: 2px; letter-spacing: .02em; }
+
+.nav { padding: 14px 12px; flex: 1; }
+.nav-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--text3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin: 14px 0 8px;
+}
+.nav-label:first-child { margin-top: 0; }
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: var(--text2);
+  font-family: inherit;
+  transition: background .14s ease, color .14s ease, border-color .14s ease, transform .14s ease;
+  text-align: left;
+  line-height: 1.4;
+}
+.nav-btn:hover {
+  background: var(--surface2);
+  color: var(--text);
+  border-color: var(--border);
+  transform: translateX(2px);
+}
+.nav-btn.active {
+  background: var(--brand-soft);
+  color: var(--text);
+  font-weight: 700;
+  border-color: color-mix(in srgb, var(--brand) 50%, var(--border));
+}
+.nav-btn .icon { width: 18px; height: 18px; flex-shrink: 0; opacity: .82; }
+.nav-btn.active .icon { opacity: 1; }
+
+.nav-all {
+  margin: 16px 12px 0;
+  padding-bottom: 18px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.btn-all {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 10px 12px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--cyan) 100%);
+  color: var(--text);
+  border: none; border-radius: 12px;
+  font-size: 13.5px; font-weight: 800; cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 12px 18px rgba(51, 215, 255, 0.22);
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+}
+.btn-all:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 22px rgba(51, 215, 255, 0.18);
+  filter: brightness(1.02);
+}
+
+.btn-reset {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 9px 12px; margin-top: 10px;
+  background: #fff;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 12.5px; cursor: pointer; font-family: inherit;
+  transition: all .12s;
+}
+.btn-reset:hover { background: var(--surface2); color: var(--text); }
+
+/* ── MAIN ── */
+.page-title { font-size: 28px; font-weight: 800; color: var(--blue); line-height: 1.2; letter-spacing: -0.05em; font-family: 'Bricolage Grotesque', 'Geist', sans-serif; }
+.page-sub { font-size: 14px; color: var(--text2); margin-top: 8px; }
+
+/* HOME */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.home-card {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(234,241,255,0.78) 38%, rgba(242,236,255,0.7) 100%);
+  border: 1px solid rgba(47, 107, 255, 0.12);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, transform .12s, background .12s;
+  box-shadow: var(--shadow-sm);
+}
+.home-card:hover {
+  border-color: rgba(47, 107, 255, 0.35);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(234,241,255,0.9) 0%, rgba(255,255,255,1) 35%, rgba(255,233,247,0.8) 100%);
+}
+.home-card-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--brand-lt) 0%, var(--purple-lt) 100%);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  margin-bottom: 12px;
+  border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
+}
+.home-card-icon svg { width: 20px; height: 20px; color: var(--brand); }
+.home-card-title { font-size: 14px; font-weight: 700; color: var(--blue); }
+.home-card-count { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+.full-diag-card {
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--cyan) 35%, var(--purple) 100%);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 16px 24px rgba(140, 107, 255, 0.18);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.full-diag-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(140, 107, 255, 0.22);
+  filter: saturate(1.06);
+}
+.full-diag-card .fd-title { font-size: 15px; font-weight: 800; }
+.full-diag-card .fd-sub { font-size: 13px; opacity: .85; margin-top: 3px; }
+.full-diag-card .fd-arrow { font-size: 22px; opacity: .9; }
+
+/* QUESTION PANEL */
+.q-panel {
+  background: linear-gradient(135deg, rgba(234,241,255,0.9) 0%, rgba(255,255,255,1) 35%, rgba(242,236,255,0.9) 100%);
+  border: 1px solid rgba(47, 107, 255, 0.15);
+  border-radius: var(--r);
+  padding: 30px 32px 32px;
+  box-shadow: 0 18px 32px rgba(47, 107, 255, 0.08), 0 3px 12px rgba(17,18,16,0.04);
+  margin-top: 24px;
+}
+.q-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.q-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--brand);
+  padding: 5px 10px;
+  border-radius: 999px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.q-counter { font-size: 12.5px; color: var(--text3); font-weight: 700; }
+.progress-bar {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 999px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand) 0%, #d3f95b 100%);
+  border-radius: 999px;
+  transition: width .35s ease;
+}
+.q-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.q-hint { font-size: 13px; color: var(--text3); margin-bottom: 28px; margin-top: -12px; font-style: italic; }
+
+.q-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.q-btn {
+  flex: 1; min-width: 100px;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  background: var(--surface);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .13s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  box-shadow: 0 1px 0 rgba(17,18,16,0.02);
+}
+.q-btn:hover { border-color: var(--brand); color: var(--text); background: linear-gradient(135deg, var(--brand-lt) 0%, var(--blue-lt) 100%); }
+.q-btn.yes:hover, .q-btn.yes.selected { border-color: var(--green); color: var(--text); background: linear-gradient(135deg, var(--green-lt) 0%, #ebfff2 100%); }
+.q-btn.no:hover,  .q-btn.no.selected  { border-color: var(--red);   color: var(--text);   background: linear-gradient(135deg, var(--red-lt) 0%, #fff2f3 100%); }
+.q-btn.unk:hover, .q-btn.unk.selected { border-color: var(--amber); color: var(--text); background: linear-gradient(135deg, var(--amber-lt) 0%, #fff9ec 100%); }
+
+/* DIAGNOSING */
+.diagnosing {
+  text-align: center;
+  padding: 48px 0;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin: 0 auto 18px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.diagnosing p { font-size: 15px; color: var(--text2); }
+
+/* RESULTS */
+.results-header { margin-top: 0; margin-bottom: 24px; }
+.results-header h2 { font-size: 20px; font-weight: 700; }
+.results-header p { font-size: 14px; color: var(--text2); margin-top: 4px; }
+
+.result-card {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(234,241,255,0.8) 32%, rgba(255,255,255,1) 100%);
+  border: 1px solid rgba(47, 107, 255, 0.12);
+  border-radius: var(--r);
+  margin-bottom: 16px;
+  box-shadow: 0 14px 26px rgba(47, 107, 255, 0.05), 0 3px 10px rgba(17,18,16,0.03);
+  overflow: hidden;
+  animation: fadeUp .25s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.result-card:nth-child(2) { animation-delay: .06s; }
+.result-card:nth-child(3) { animation-delay: .12s; }
+.result-card:nth-child(4) { animation-delay: .18s; }
+
+.result-card.critical { border-color: var(--red-border); }
+.result-card.critical .rc-head { background: var(--red-lt); }
+
+.rc-head {
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(90deg, rgba(234,241,255,0.65) 0%, rgba(255,255,255,0.2) 100%);
+}
+.rc-rank {
+  width: 28px; height: 28px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.result-card.critical .rc-rank { background: var(--red); }
+
+.rc-info { flex: 1; min-width: 0; }
+.rc-name { font-size: 15.5px; font-weight: 700; color: var(--blue); }
+.result-card.critical .rc-name { color: var(--red); }
+
+.rc-cf-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.cf-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.cf-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .6s cubic-bezier(.4,0,.2,1) .15s;
+}
+.cf-bar.high   { background: var(--green); }
+.cf-bar.mid    { background: var(--brand); }
+.cf-bar.low    { background: var(--amber); }
+
+.cf-pct { font-size: 13px; font-weight: 700; white-space: nowrap; min-width: 36px; text-align: right; }
+.cf-pct.high   { color: var(--green); }
+.cf-pct.mid    { color: var(--brand); }
+.cf-pct.low    { color: var(--amber); }
+
+.cf-label {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.cf-label.high { background: var(--green-lt); color: var(--green); }
+.cf-label.mid  { background: var(--brand-lt); color: var(--brand); }
+.cf-label.low  { background: var(--amber-lt); color: var(--amber); }
+
+.rc-toggle {
+  color: var(--text3);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: transform .2s;
+}
+.rc-toggle.open { transform: rotate(180deg); }
+
+.rc-body {
+  border-top: 1px solid var(--border);
+  padding: 20px 20px 20px 64px;
+  display: none;
+}
+.rc-body.open { display: block; }
+
+.steps-title { font-size: 12px; font-weight: 600; color: var(--text3); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 14px; }
+.step-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 13.5px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+.step-item.warning {
+  background: var(--red-lt);
+  border: 1px solid var(--red-border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.step-num {
+  width: 22px; height: 22px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 700;
+  color: var(--text3);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-code {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 12.5px;
+  color: var(--text);
+  margin: 6px 0 4px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* NO RESULTS */
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  margin-top: 24px;
+}
+.no-results h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.no-results p  { font-size: 14px; color: var(--text2); max-width: 420px; margin: 0 auto; }
+
+/* ACTIONS BAR */
+.actions-bar {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.btn-secondary {
+  padding: 9px 18px;
+  background: var(--surface); color: var(--text2);
+  border: 1.5px solid var(--border2); border-radius: var(--r-sm);
+  font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: all .12s;
+}
+.btn-secondary:hover { background: var(--surface2); color: var(--text); }
+
+/* CATEGORY HEADING */
+.cat-heading {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.cat-heading-icon {
+  width: 42px; height: 42px;
+  background: var(--brand-lt);
+  border-radius: 10px;
+  display: grid; place-items: center;
+}
+.cat-heading-icon svg { width: 22px; height: 22px; color: var(--brand); }
+.cat-heading h2 { font-size: 20px; font-weight: 700; color: var(--blue); }
+.cat-heading p  { font-size: 13.5px; color: var(--text2); margin-top: 2px; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .main { padding: 20px 16px; }
+  .q-panel { padding: 20px; }
+  .rc-body { padding-left: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <div class="logo-title">Smart IT Support<br>Expert System</div>
+      </div>
+      <div class="logo-sub">Backward Chaining · MYCIN CF Engine</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">Categories</div>
+      <button class="nav-btn active" onclick="showHome()" id="nav-home">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </button>
+      <button class="nav-btn" onclick="startCategory(0)" id="nav-0">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+        Network & Connectivity
+      </button>
+      <button class="nav-btn" onclick="startCategory(1)" id="nav-1">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Operating System
+      </button>
+      <button class="nav-btn" onclick="startCategory(2)" id="nav-2">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
+        Hardware
+      </button>
+      <button class="nav-btn" onclick="startCategory(3)" id="nav-3">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Software & Apps
+      </button>
+      <button class="nav-btn" onclick="startCategory(4)" id="nav-4">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Security & Malware
+      </button>
+      <button class="nav-btn" onclick="startCategory(5)" id="nav-5">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Printers
+      </button>
+      <button class="nav-btn" onclick="startCategory(6)" id="nav-6">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email & Comms
+      </button>
+    </nav>
+
+    <div class="nav-all">
+      <button class="btn-all" onclick="startCategory(7)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Run Full Diagnostic
+      </button>
+      <button class="btn-reset" onclick="resetSession()">↺ Reset Session</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main"></main>
+</div>
+
+<script>
+/* ================================================================
+   KNOWLEDGE BASE  —  ported from SWI-Prolog expert_system.pl
+   ================================================================ */
+
+const KB = {
+
+  // ── DIAGNOSES ── { id, name, symptoms: [{sym, expect, weight}] }
+  diagnoses: [
+    // Category 0 — Network
+    { id:'no_internet',           name:'No Internet Connectivity',       cat:0,
+      symptoms:[{s:'ping_ip_fails',e:1,w:.90},{s:'no_dhcp_address',e:1,w:.70}] },
+    { id:'dns_failure',           name:'DNS Resolution Failure',         cat:0,
+      symptoms:[{s:'ping_ip_fails',e:0,w:.80},{s:'ping_name_fails',e:1,w:.90}] },
+    { id:'slow_network',          name:'Slow Network / Bandwidth Issue', cat:0,
+      symptoms:[{s:'internet_slow',e:1,w:.80},{s:'high_bandwidth_apps',e:1,w:.65}] },
+    { id:'wifi_problem',          name:'Wi-Fi Connection Problem',       cat:0,
+      symptoms:[{s:'wifi_not_connecting',e:1,w:.85},{s:'ethernet_works',e:1,w:.75}] },
+    { id:'network_adapter_issue', name:'Network Adapter Error',          cat:0,
+      symptoms:[{s:'adapter_error_devmgr',e:1,w:.90},{s:'ping_ip_fails',e:1,w:.70}] },
+    { id:'vpn_problem',           name:'VPN Connectivity Problem',       cat:0,
+      symptoms:[{s:'vpn_fails_to_connect',e:1,w:.85},{s:'internet_works_no_vpn',e:1,w:.80}] },
+    // Category 1 — OS
+    { id:'boot_failure',          name:'OS Boot Failure',                cat:1,
+      symptoms:[{s:'os_wont_boot',e:1,w:.95},{s:'bios_posts_ok',e:1,w:.60}] },
+    { id:'bsod',                  name:'Blue Screen of Death (BSOD)',    cat:1,
+      symptoms:[{s:'blue_screen_appears',e:1,w:.95},{s:'system_reboots_itself',e:1,w:.70}] },
+    { id:'system_freeze',         name:'System Freeze / Hang',           cat:1,
+      symptoms:[{s:'system_freezes',e:1,w:.85},{s:'high_cpu_usage',e:1,w:.60}] },
+    { id:'slow_performance',      name:'Slow System Performance',        cat:1,
+      symptoms:[{s:'computer_slow',e:1,w:.80},{s:'high_disk_usage',e:1,w:.65}] },
+    { id:'update_failure',        name:'Windows Update Failure',         cat:1,
+      symptoms:[{s:'updates_fail',e:1,w:.90},{s:'update_error_code',e:1,w:.70}] },
+    { id:'profile_corruption',    name:'User Profile Corruption',        cat:1,
+      symptoms:[{s:'settings_reset_on_login',e:1,w:.85},{s:'temp_profile_warning',e:1,w:.90}] },
+    // Category 2 — Hardware
+    { id:'hdd_failure',           name:'Hard Drive / SSD Failure',       cat:2, critical:true,
+      symptoms:[{s:'hdd_clicking_noise',e:1,w:.90},{s:'disk_read_errors',e:1,w:.85}] },
+    { id:'ram_failure',           name:'RAM / Memory Failure',           cat:2,
+      symptoms:[{s:'random_crashes',e:1,w:.80},{s:'memory_dump_err',e:1,w:.85}] },
+    { id:'overheating',           name:'Hardware Overheating',           cat:2,
+      symptoms:[{s:'high_temps',e:1,w:.90},{s:'throttles_or_shuts',e:1,w:.80}] },
+    { id:'psu_failure',           name:'Power Supply (PSU) Problem',     cat:2,
+      symptoms:[{s:'no_power_at_all',e:1,w:.75},{s:'random_power_off',e:1,w:.75}] },
+    { id:'display_problem',       name:'Display / GPU Problem',          cat:2,
+      symptoms:[{s:'no_display_output',e:1,w:.85},{s:'screen_artifacts',e:1,w:.70}] },
+    { id:'usb_issue',             name:'USB Device Not Recognised',      cat:2,
+      symptoms:[{s:'usb_not_detected',e:1,w:.85},{s:'device_works_elsewhere',e:1,w:.70}] },
+    // Category 3 — Software
+    { id:'app_crash',             name:'Application Crash',              cat:3,
+      symptoms:[{s:'specific_app_crashes',e:1,w:.85},{s:'crash_on_launch',e:1,w:.65}] },
+    { id:'driver_conflict',       name:'Device Driver Conflict',         cat:3,
+      symptoms:[{s:'device_stopped_working',e:1,w:.80},{s:'yellow_bang_devmgr',e:1,w:.90}] },
+    { id:'disk_full',             name:'Disk Drive Full',                cat:3,
+      symptoms:[{s:'disk_nearly_full',e:1,w:.90},{s:'cant_save_files',e:1,w:.80}] },
+    { id:'missing_runtime',       name:'Missing Runtime / DLL Error',    cat:3,
+      symptoms:[{s:'dll_not_found_error',e:1,w:.90},{s:'app_worked_before',e:1,w:.65}] },
+    // Category 4 — Security
+    { id:'malware',               name:'Malware / Virus Infection',      cat:4, critical:true,
+      symptoms:[{s:'suspicious_popups',e:1,w:.80},{s:'antivirus_alert',e:1,w:.85}] },
+    { id:'ransomware',            name:'Ransomware Attack',              cat:4, critical:true,
+      symptoms:[{s:'files_encrypted',e:1,w:.95},{s:'ransom_note_found',e:1,w:.99}] },
+    { id:'account_lockout',       name:'User Account Lockout',           cat:4,
+      symptoms:[{s:'cant_login',e:1,w:.85},{s:'lockout_msg_shown',e:1,w:.90}] },
+    { id:'account_compromise',    name:'Account Compromise / Breach',    cat:4, critical:true,
+      symptoms:[{s:'unexpected_sent_mail',e:1,w:.80},{s:'unknown_login_alerts',e:1,w:.85}] },
+    { id:'firewall_blocking',     name:'Firewall Blocking Application',  cat:4,
+      symptoms:[{s:'app_blocked_firewall',e:1,w:.85},{s:'connection_timeout',e:1,w:.60}] },
+    // Category 5 — Printers
+    { id:'printer_offline',       name:'Printer Offline / Not Printing', cat:5,
+      symptoms:[{s:'printer_shows_offline',e:1,w:.80},{s:'print_queue_stuck',e:1,w:.70}] },
+    { id:'printer_driver',        name:'Printer Driver Problem',         cat:5,
+      symptoms:[{s:'printer_driver_error',e:1,w:.85},{s:'reinstall_fixed_it',e:0,w:.55}] },
+    // Category 6 — Email
+    { id:'email_send_fail',       name:'Email Not Sending (SMTP)',       cat:6,
+      symptoms:[{s:'emails_stuck_outbox',e:1,w:.85},{s:'smtp_error_shown',e:1,w:.75}] },
+    { id:'email_recv_fail',       name:'Email Not Receiving',            cat:6,
+      symptoms:[{s:'no_incoming_email',e:1,w:.80},{s:'mailbox_quota_full',e:1,w:.70}] },
+    { id:'av_comms_issue',        name:'Mic / Camera Not Working',       cat:6,
+      symptoms:[{s:'mic_or_cam_not_working',e:1,w:.85},{s:'works_in_other_apps',e:0,w:.65}] },
+  ],
+
+  // ── SYMPTOM QUESTIONS ──
+  questions: {
+    ping_ip_fails:           'Does  ping 8.8.8.8  fail? (raw IP reachability test)',
+    no_dhcp_address:         'Does  ipconfig /all  show a 169.x.x.x address or no IP at all?',
+    ping_name_fails:         'Does  ping google.com  fail while  ping 8.8.8.8  succeeds?',
+    internet_slow:           'Is internet noticeably slow? (pages take very long to load)',
+    high_bandwidth_apps:     'Is a background app (Teams, OneDrive, Windows Update) using heavy bandwidth?',
+    wifi_not_connecting:     'Is Wi-Fi failing to connect or authenticate to the access point?',
+    ethernet_works:          'Does a wired Ethernet connection work when Wi-Fi does not?',
+    adapter_error_devmgr:    'Is there a yellow ! or ? on the network adapter in Device Manager?',
+    vpn_fails_to_connect:    'Does the VPN client fail to establish a connection?',
+    internet_works_no_vpn:   'Does internet browsing work fine when the VPN is disconnected?',
+    os_wont_boot:            'Does the OS completely fail to boot (stuck before the login screen)?',
+    bios_posts_ok:           'Does the initial BIOS/firmware POST screen appear before the failure?',
+    blue_screen_appears:     'Do you see a Blue Screen of Death (BSOD) with a STOP error code?',
+    system_reboots_itself:   'Does the system reboot itself unexpectedly without warning?',
+    system_freezes:          'Does the system completely freeze and become fully unresponsive?',
+    high_cpu_usage:          'Is CPU usage above 90% continuously in Task Manager?',
+    computer_slow:           'Is the computer generally sluggish with long delays on all tasks?',
+    high_disk_usage:         'Is Disk usage showing 100% frequently in Task Manager?',
+    updates_fail:            'Do Windows updates fail to install and roll back?',
+    update_error_code:       'Is a specific error code displayed when updates fail (e.g. 0x80070057)?',
+    settings_reset_on_login: 'Are your desktop and settings being reset to defaults every login?',
+    temp_profile_warning:    'Do you see a "You have been signed in with a temporary profile" warning?',
+    hdd_clicking_noise:      'Do you hear clicking, grinding, or unusual sounds from the hard drive?',
+    disk_read_errors:        'Are there disk-related read/write errors in Event Viewer or during boot?',
+    random_crashes:          'Does the system crash or shut off suddenly without any BSOD (instant off)?',
+    memory_dump_err:         'Do crash dumps or Event Viewer show memory/pool corruption errors?',
+    high_temps:              'Are hardware temperatures critically high? (CPU above 90°C)',
+    throttles_or_shuts:      'Does the system throttle performance or shut down suddenly under load?',
+    no_power_at_all:         'Does the computer completely fail to power on? (no lights, no fans)',
+    random_power_off:        'Does the system suddenly lose power under medium-to-heavy load?',
+    no_display_output:       'Is there no image on the monitor at all? (black screen / no signal)',
+    screen_artifacts:        'Do you see visual glitches, lines, blocks, or corruption on screen?',
+    usb_not_detected:        'Is a USB device not detected or not recognised when plugged in?',
+    device_works_elsewhere:  'Does the same USB device work correctly on another computer?',
+    specific_app_crashes:    'Does one specific application crash while the rest of the system is fine?',
+    crash_on_launch:         'Does the application crash immediately when you try to launch it?',
+    device_stopped_working:  'Has a hardware device (printer, webcam, etc.) suddenly stopped working?',
+    yellow_bang_devmgr:      'Is there a yellow exclamation mark on any device in Device Manager?',
+    disk_nearly_full:        'Is your C: drive nearly full? (less than 10% free space)',
+    cant_save_files:         'Are you unable to save files due to insufficient disk space errors?',
+    dll_not_found_error:     'Do you see a "DLL not found" or "VCRUNTIME / MSVCP missing" error?',
+    app_worked_before:       'Did this application work correctly before this started?',
+    suspicious_popups:       'Are there unexpected pop-ups, browser redirects, or new toolbars appearing?',
+    antivirus_alert:         'Is antivirus or Windows Defender showing active threat alerts?',
+    files_encrypted:         'Have files been renamed with strange extensions and become unreadable?',
+    ransom_note_found:       'Is there a ransom demand note (text/HTML file) on the desktop or in folders?',
+    cant_login:              'Are you unable to log in to a Windows or domain account?',
+    lockout_msg_shown:       'Is a "Your account has been locked" message displayed on login?',
+    unexpected_sent_mail:    'Are people reporting they received unexpected emails sent from your account?',
+    unknown_login_alerts:    'Are you receiving sign-in alerts for logins you did not perform?',
+    app_blocked_firewall:    'Is an application showing firewall or access-denied connection errors?',
+    connection_timeout:      'Are connections to a specific app or server timing out consistently?',
+    printer_shows_offline:   'Does the printer show as "Offline" in Devices and Printers?',
+    print_queue_stuck:       'Are print jobs stuck in the queue and the queue cannot be cleared?',
+    printer_driver_error:    'Is there a driver error shown when trying to install or use the printer?',
+    reinstall_fixed_it:      'Did simply reinstalling the printer driver fix this problem previously?',
+    emails_stuck_outbox:     'Are outgoing emails stuck in the Outbox and not being sent?',
+    smtp_error_shown:        'Is an SMTP or send-error message displayed in your mail client?',
+    no_incoming_email:       'Are incoming emails not arriving at all?',
+    mailbox_quota_full:      'Is your mailbox quota full or nearly full?',
+    mic_or_cam_not_working:  'Is the microphone or camera not working in Teams, Zoom, or similar apps?',
+    works_in_other_apps:     'Does the mic/camera work correctly in other applications or OS settings?',
+  },
+
+  // ── SOLUTIONS ──
+  solutions: {
+    no_internet: [
+      {t:'ipconfig /all', d:'Check you have a valid IP address — it should NOT be 169.x.x.x (APIPA). A 169.x address means DHCP failed.'},
+      {t:'ping 8.8.8.8', d:'Test raw IP-level connectivity to Google\'s DNS server.', code:'ping 8.8.8.8'},
+      {t:'Restart router/modem', d:'Unplug power for 30 seconds, then plug back in. Wait 2 minutes for reconnection.'},
+      {t:'Release and renew IP', d:'Open Command Prompt as Administrator and run:', code:'ipconfig /release\nipconfig /renew'},
+      {t:'Flush DNS cache', d:'Clear the local DNS resolver cache:', code:'ipconfig /flushdns'},
+      {t:'Reset TCP/IP and Winsock', d:'Fully reset the network stack:', code:'netsh int ip reset\nnetsh winsock reset'},
+      {t:'Check physical connections', d:'Verify the Ethernet cable is firmly seated at both ends, or check Wi-Fi signal strength.'},
+      {t:'Isolate the fault', d:'Try another device on the same network. If it also fails, the issue is with the router or ISP, not your PC.'},
+    ],
+    dns_failure: [
+      {t:'Confirm IP works', d:'Run ping 8.8.8.8 — if it succeeds but ping google.com fails, this is purely a DNS issue.', code:'ping 8.8.8.8\nping google.com'},
+      {t:'Flush DNS cache', d:'Clear stale or corrupt DNS entries:', code:'ipconfig /flushdns'},
+      {t:'Switch to Google DNS', d:'Change to a reliable public DNS server. Go to Settings → Network → Adapter → IPv4 → Use the following DNS server addresses: 8.8.8.8 / 8.8.4.4'},
+      {t:'Test alternate DNS', d:'Confirm the new DNS works:', code:'nslookup google.com 8.8.8.8'},
+      {t:'Check hosts file', d:'Look for rogue entries that could redirect domains. Open: %SystemRoot%\\system32\\drivers\\etc\\hosts'},
+      {t:'Disable VPN or proxy', d:'Third-party VPNs sometimes intercept DNS. Disconnect temporarily to test.'},
+    ],
+    slow_network: [
+      {t:'Run a speed test', d:'Visit fast.com or speedtest.net to measure actual throughput vs your plan\'s rated speed.'},
+      {t:'Check Task Manager bandwidth', d:'Open Task Manager → Performance → Ethernet/Wi-Fi to see current utilisation percentage.'},
+      {t:'Identify bandwidth hogs', d:'In Task Manager → App History or Processes, sort by Network to find the culprit app.'},
+      {t:'Limit Windows Update bandwidth', d:'Settings → Windows Update → Advanced Options → Delivery Optimisation → Limit bandwidth.'},
+      {t:'Switch to Ethernet', d:'Wi-Fi throughput degrades with distance and interference. A wired connection gives consistent speed.'},
+      {t:'Change Wi-Fi channel', d:'Install Wi-Fi Analyser on Android to find the least congested channel, then update router settings.'},
+      {t:'Update network drivers', d:'Open Device Manager → Network Adapters → right-click → Update driver.'},
+      {t:'Contact ISP', d:'If all the above check out, raise a line fault ticket with your internet service provider.'},
+    ],
+    wifi_problem: [
+      {t:'Forget and reconnect', d:'Open Wi-Fi settings, click your network, select Forget, then reconnect and re-enter the password.'},
+      {t:'Disable then re-enable adapter', d:'Device Manager → Network Adapters → right-click Wi-Fi adapter → Disable → Enable.'},
+      {t:'Remove corrupt profile', d:'List and delete the saved Wi-Fi profile:', code:'netsh wlan show profiles\nnetsh wlan delete profile name="YOUR_SSID"'},
+      {t:'Try 2.4 GHz band', d:'On a dual-band router, the 5 GHz band has shorter range. Try the 2.4 GHz network name instead.'},
+      {t:'Update wireless driver', d:'Download the latest wireless adapter driver directly from the manufacturer\'s website (not Windows Update).'},
+      {t:'Disable VPN', d:'Some VPN clients intercept Wi-Fi authentication. Disconnect VPN and retry.'},
+      {t:'Full network reset', d:'As a last resort:', code:'netsh int ip reset\nnetsh winsock reset'},
+    ],
+    network_adapter_issue: [
+      {t:'Open Device Manager', d:'Press Win+X → Device Manager → expand Network Adapters. Look for yellow ! or ? marks.'},
+      {t:'Update driver', d:'Right-click the adapter → Update driver → Search automatically for updated driver software.'},
+      {t:'Download from manufacturer', d:'If auto-update fails, visit the hardware maker\'s support site (Intel, Realtek, etc.) and download manually.'},
+      {t:'Uninstall and reinstall', d:'Right-click adapter → Uninstall device, then Action → Scan for hardware changes to trigger reinstall.'},
+      {t:'Check BIOS', d:'Restart into BIOS/UEFI and confirm the NIC is not disabled under onboard devices.'},
+      {t:'Use USB Ethernet adapter', d:'Plug in a USB-to-Ethernet adapter to confirm whether the problem is with the adapter hardware or drivers.'},
+    ],
+    vpn_problem: [
+      {t:'Confirm base internet', d:'Disconnect from VPN completely and verify normal internet browsing works first.'},
+      {t:'Re-enter credentials', d:'If your domain password recently changed, your VPN credentials need updating too.'},
+      {t:'Try a different protocol', d:'In VPN client settings, switch between OpenVPN, IKEv2, and WireGuard to find what works.'},
+      {t:'Check server status', d:'Visit your VPN provider\'s status page or contact the network admin to check for outages.'},
+      {t:'Disable firewall temporarily', d:'Windows Firewall or a third-party suite may be blocking VPN ports (UDP 500, 4500 for IPsec).'},
+      {t:'Reinstall VPN client', d:'Fully uninstall the VPN client, reboot, then install the latest version.'},
+    ],
+    boot_failure: [
+      {t:'Boot from installation media', d:'Create a Windows USB installer via the Microsoft Media Creation Tool and boot from it.'},
+      {t:'Run Startup Repair', d:'Choose Repair your computer → Troubleshoot → Advanced Options → Startup Repair.'},
+      {t:'Repair boot records', d:'If Startup Repair fails, open Command Prompt from recovery and run:', code:'bootrec /fixmbr\nbootrec /fixboot\nbootrec /scanos\nbootrec /rebuildbcd'},
+      {t:'Try System Restore', d:'Troubleshoot → Advanced Options → System Restore. Pick a restore point from before the problem.'},
+      {t:'System File Checker', d:'From recovery Command Prompt:', code:'sfc /scannow'},
+      {t:'DISM image repair', d:'From recovery Command Prompt:', code:'DISM /Image:C:\\ /Cleanup-Image /RestoreHealth'},
+      {t:'Check disk health', d:'', code:'chkdsk C: /f /r'},
+      {t:'Reset This PC', d:'Last resort: Troubleshoot → Reset this PC. The "Keep my files" option is available.'},
+    ],
+    bsod: [
+      {t:'Note the STOP code', d:'The exact code (e.g. IRQL_NOT_LESS_OR_EQUAL, MEMORY_MANAGEMENT) tells you the component responsible. Search it on docs.microsoft.com.'},
+      {t:'Boot into Safe Mode', d:'Hold Shift while clicking Restart → Troubleshoot → Advanced → Startup Settings → Enable Safe Mode with Networking.'},
+      {t:'Check Event Viewer', d:'In Safe Mode: Event Viewer → Windows Logs → System. Look for Critical events at the time of the crash.'},
+      {t:'Run System File Checker', d:'', code:'sfc /scannow'},
+      {t:'DISM image repair', d:'', code:'DISM /Online /Cleanup-Image /RestoreHealth'},
+      {t:'Roll back recent driver', d:'Device Manager → find recently updated device → Properties → Driver tab → Roll Back Driver.'},
+      {t:'Test RAM', d:'Run mdsched.exe → Restart now and check for problems. For thorough testing, use MemTest86+ overnight.'},
+      {t:'Check disk', d:'', code:'chkdsk /f /r'},
+      {t:'GPU driver clean reinstall', d:'For GPU-related STOP codes: use DDU (Display Driver Uninstaller) in Safe Mode, then install fresh GPU driver.'},
+    ],
+    system_freeze: [
+      {t:'Check Task Manager', d:'Press Ctrl+Shift+Esc. Note which resource (CPU/RAM/Disk/GPU) is pegged at 100%.'},
+      {t:'Disable startup programs', d:'Task Manager → Startup tab → disable everything with High impact that you don\'t need.'},
+      {t:'Check Event Viewer', d:'Windows Logs → System. Filter for Kernel-Power Event ID 41 — this confirms unexpected shutdowns.'},
+      {t:'System File Checker', d:'', code:'sfc /scannow'},
+      {t:'Check disk', d:'Schedule a disk check on next reboot:', code:'chkdsk C: /f'},
+      {t:'Test RAM', d:'Run mdsched.exe to check for memory errors.'},
+      {t:'Update drivers', d:'Update chipset, GPU, storage controller, and NIC drivers from manufacturers.'},
+      {t:'Malware scan', d:'Run Windows Defender full scan + Malwarebytes Free.'},
+      {t:'Check temperatures', d:'Install HWiNFO64. If CPU is above 90°C under normal load, clean the heatsink and replace thermal paste.'},
+    ],
+    slow_performance: [
+      {t:'Identify the bottleneck', d:'Task Manager → Performance tab. Check which of CPU, RAM, Disk, or GPU is consistently at 100%.'},
+      {t:'Disable startup apps', d:'Task Manager → Startup → disable all High impact items you don\'t need to launch immediately.'},
+      {t:'Run Disk Cleanup', d:'Run cleanmgr.exe, click "Clean up system files", tick everything including Windows Update cleanup.'},
+      {t:'Run Storage Sense', d:'Settings → System → Storage → Run Storage Sense now.'},
+      {t:'Uninstall unused programs', d:'Settings → Apps & Features → sort by Size → uninstall anything you don\'t use.'},
+      {t:'Adjust visual effects', d:'sysdm.cpl → Advanced → Performance → Settings → Adjust for best performance.'},
+      {t:'Set High Performance power plan', d:'Control Panel → Power Options → High performance.'},
+      {t:'Defragment HDD', d:'Only for spinning hard drives — skip this entirely for SSDs:', code:'defrag C: /U /V'},
+      {t:'Hardware path', d:'If RAM is consistently above 80% — add more RAM. If using a HDD — replace with SSD for the biggest performance gain.'},
+    ],
+    update_failure: [
+      {t:'Note the error code', d:'The exact code (e.g. 0x80070057) tells you the specific failure. Search it on support.microsoft.com.'},
+      {t:'Run Update Troubleshooter', d:'Settings → System → Troubleshoot → Other troubleshooters → Windows Update.'},
+      {t:'Clear update cache', d:'Stop services, clear the cache, restart:', code:'net stop wuauserv && net stop bits && net stop cryptSvc\nren %SystemRoot%\\SoftwareDistribution SoftwareDistribution.old\nnet start wuauserv && net start bits && net start cryptSvc'},
+      {t:'System File Checker', d:'', code:'sfc /scannow'},
+      {t:'DISM repair', d:'', code:'DISM /Online /Cleanup-Image /RestoreHealth'},
+      {t:'Download manually', d:'Download the specific update (by KB number) from catalog.update.microsoft.com and install directly.'},
+      {t:'Check disk space', d:'Updates need several GB free on C:. Run Disk Cleanup to make room.'},
+    ],
+    profile_corruption: [
+      {t:'Log off and back in', d:'Sometimes a profile loads cleanly on second login. Check if the temporary profile message persists.'},
+      {t:'Check Event Viewer', d:'Event Viewer → Windows Logs → Application. Filter for "User Profile Service". Event IDs 1509 and 1511 confirm corruption.'},
+      {t:'Test in Safe Mode', d:'If profile loads correctly in Safe Mode, the corruption is in a software component loaded at normal startup.'},
+      {t:'Create new local account', d:'Settings → Accounts → Family & other users → Add someone else. Transfer your files from the old profile folder.'},
+      {t:'Fix registry entry', d:'Open regedit → HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList. Find the .bak entry for your user and rename or delete it.'},
+      {t:'Run SFC after fix', d:'', code:'sfc /scannow'},
+    ],
+    hdd_failure: [
+      {t:'⚠ BACK UP DATA FIRST', d:'Before doing anything else — copy all critical files to an external drive or cloud storage. The drive may fail completely at any moment.', warn:true},
+      {t:'Check SMART status', d:'', code:'wmic diskdrive get status'},
+      {t:'CrystalDiskInfo', d:'Download CrystalDiskInfo. Any attribute shown in red (especially Reallocated Sectors or Pending Sectors) means imminent failure.'},
+      {t:'Schedule disk check', d:'', code:'chkdsk C: /f /r'},
+      {t:'Clone the drive', d:'Use Clonezilla or Macrium Reflect Free to clone the failing drive to a new drive immediately.'},
+      {t:'Replace the drive', d:'After cloning, replace the physical drive. HDDs are not repairable — replace immediately when SMART shows failure.'},
+      {t:'Check cables', d:'A loose SATA data or power cable can mimic a failing drive. Reseat both cables before buying a new drive.'},
+    ],
+    ram_failure: [
+      {t:'Windows Memory Diagnostic', d:'Run mdsched.exe → Restart now and check for problems. Results appear after reboot in Event Viewer.'},
+      {t:'MemTest86 overnight', d:'Create a MemTest86 bootable USB (memtest86.com) and run the full test overnight for thorough coverage.'},
+      {t:'Reseat RAM modules', d:'Power off completely (unplug from wall). Remove each stick, clean the gold contacts with a pencil eraser, and firmly reinsert.'},
+      {t:'Test sticks individually', d:'Boot with only one stick in slot A2. Alternate sticks to identify which module is faulty.'},
+      {t:'Check compatibility', d:'Verify the RAM is on the motherboard\'s QVL (Qualified Vendor List). Incompatible speed/voltage causes instability.'},
+      {t:'Replace faulty stick', d:'When replacing, match the speed (MHz), voltage, and CAS latency of the remaining sticks.'},
+    ],
+    overheating: [
+      {t:'Monitor temperatures', d:'Install HWiNFO64 and run a stress test. Safe limits: CPU < 85°C, GPU < 90°C, NVMe SSD < 70°C.'},
+      {t:'Clean dust thoroughly', d:'Power off and unplug. Use compressed air on all heatsinks, fans, and vents. Laptops: remove bottom panel to access internals.'},
+      {t:'Check all fans spin', d:'Confirm the CPU cooler fan, case fans, and GPU fans all spin correctly at load.'},
+      {t:'Replace thermal paste', d:'Old dried thermal paste dramatically reduces heat transfer. Clean off the old paste with isopropyl alcohol and apply a pea-sized amount of quality paste (e.g. Thermal Grizzly Kryonaut).'},
+      {t:'Improve case airflow', d:'Desktop: add fans with front-bottom intake pushing cool air, rear-top exhaust expelling hot air.'},
+      {t:'Laptop cooling pad', d:'A USB-powered laptop cooling pad can reduce temperatures by 5–15°C.'},
+      {t:'Check BIOS fan curves', d:'Increase fan speed thresholds in BIOS. Many systems are set too conservatively by default.'},
+    ],
+    psu_failure: [
+      {t:'Test with known-good PSU', d:'If you have access to a spare PSU of adequate wattage, swap it in to confirm.'},
+      {t:'Use PSU tester', d:'A $10 PSU tester gives quick voltage readouts. For a rough manual check: short the green wire to any black wire on the 24-pin connector (paperclip test) — the PSU fan should spin.'},
+      {t:'Test with minimal hardware', d:'Remove GPU, extra drives, and RAM sticks (leave one). If it boots, the PSU may be underpowered for the full load.'},
+      {t:'Check all cables', d:'Ensure the 24-pin motherboard connector, 8-pin CPU connector, and PCIe GPU connectors are all fully clicked in.'},
+      {t:'Inspect for damage', d:'Look for bulging or leaking capacitors on the PSU board, burn marks, or an unusual smell — all indicate failure.'},
+      {t:'Check wattage', d:'Use the OuterVision PSU calculator (outervision.com/power-supply-calculator) to ensure your PSU can handle the system load.'},
+      {t:'Replace — do not repair', d:'PSUs contain capacitors that hold lethal charge. Replace the unit; never attempt internal repair.'},
+    ],
+    display_problem: [
+      {t:'Check cable connections', d:'Firmly reseat the video cable (HDMI/DisplayPort/DVI/VGA) at both the monitor and the PC/GPU end.'},
+      {t:'Try a different cable', d:'Video cables fail silently. Test with a known-good cable before assuming a hardware fault.'},
+      {t:'Isolate monitor vs PC', d:'Connect the monitor to a different device (laptop, phone via adapter). If it works there, the issue is in the PC.'},
+      {t:'Check input source', d:'Use the monitor\'s physical buttons to confirm the correct input (HDMI 1, DisplayPort, etc.) is selected.'},
+      {t:'Reseat GPU', d:'Power off and unplug. Press the PCIe slot release tab, remove the GPU, then firmly reinsert it until you hear a click.'},
+      {t:'Test with integrated graphics', d:'Remove the discrete GPU and connect the monitor to the motherboard\'s video output to isolate GPU vs display.'},
+      {t:'Boot to BIOS', d:'If display works in BIOS but not Windows, the issue is OS/driver level, not hardware.'},
+      {t:'Clean reinstall GPU driver', d:'Boot Safe Mode, use DDU (Display Driver Uninstaller) to fully remove the GPU driver, then install the latest from the manufacturer.'},
+    ],
+    usb_issue: [
+      {t:'Try a different port', d:'Rear-panel USB ports (connected directly to motherboard) are more reliable than front-panel ports.'},
+      {t:'Test on another computer', d:'Confirm the device itself works on another machine to rule out a faulty device.'},
+      {t:'Check Device Manager', d:'Look for "Unknown Device" entries under Universal Serial Bus Controllers.'},
+      {t:'Reinstall USB controllers', d:'In Device Manager, expand USB controllers, right-click each entry → Uninstall device, then Action → Scan for hardware changes.'},
+      {t:'Disable USB Selective Suspend', d:'Control Panel → Power Options → Change plan settings → Change advanced power settings → USB settings → USB selective suspend setting → Disabled.'},
+      {t:'Update chipset drivers', d:'Download and install the latest chipset driver package from your motherboard manufacturer (Intel/AMD chipset).'},
+    ],
+    app_crash: [
+      {t:'Check Event Viewer', d:'Event Viewer → Windows Logs → Application. Filter for Error level events matching your app name and the time of the crash.'},
+      {t:'Run as Administrator', d:'Right-click the app → Run as administrator. Some apps require elevated privileges.'},
+      {t:'Reinstall cleanly', d:'Uninstall the app via Apps & Features, delete any leftover folders in %AppData% and %LocalAppData%, then reinstall.'},
+      {t:'Install Visual C++ Redistributables', d:'Download all Visual C++ Redistributable packages (2015–2022 x64 and x86) from Microsoft\'s official download page.'},
+      {t:'Install .NET Framework', d:'Check what .NET version the app requires and install it from microsoft.com/net.'},
+      {t:'Test with AV disabled', d:'Temporarily disable real-time protection to check if antivirus is quarantining an app file.'},
+      {t:'Clear app cache', d:'Delete the app\'s cache folder: %AppData%\\[AppName] or %LocalAppData%\\[AppName]'},
+      {t:'Compatibility mode', d:'Right-click → Properties → Compatibility tab → Run compatibility troubleshooter.'},
+    ],
+    driver_conflict: [
+      {t:'Open Device Manager', d:'Win+X → Device Manager. Look for any devices with yellow ! (code 43, code 10 etc.) or ? (unknown device).'},
+      {t:'Check error code', d:'Right-click problem device → Properties → Device status shows the exact error code. Look it up.'},
+      {t:'Update driver', d:'Right-click → Update driver → Search automatically.'},
+      {t:'Roll back driver', d:'If the problem started after a Windows Update: Properties → Driver tab → Roll Back Driver.'},
+      {t:'Uninstall and reinstall', d:'Right-click → Uninstall device (tick "Delete driver software"), then Action → Scan for hardware changes.'},
+      {t:'Download from manufacturer', d:'Always prefer the driver from the hardware manufacturer\'s website over what Windows Update provides.'},
+      {t:'GPU — use DDU', d:'For GPU driver issues: boot Safe Mode, run DDU (Display Driver Uninstaller) for a completely clean removal, then install the latest driver fresh.'},
+    ],
+    disk_full: [
+      {t:'Run Disk Cleanup', d:'Run cleanmgr.exe, click "Clean up system files", and tick every category including Windows Update Cleanup.'},
+      {t:'Storage Sense', d:'Settings → System → Storage → click "Run Storage Sense now".'},
+      {t:'Visualise usage', d:'Install WinDirStat or TreeSize Free to see exactly what is consuming space before deleting anything.'},
+      {t:'Uninstall unused apps', d:'Settings → Apps & Features → sort by Size. Remove anything large you no longer need.'},
+      {t:'Delete Windows.old', d:'If you recently upgraded Windows, Windows.old can be 20–30 GB. Remove it via Disk Cleanup → system files.'},
+      {t:'Clear temp folders', d:'Press Win+R, type %TEMP%, delete all contents. Repeat for C:\\Windows\\Temp.'},
+      {t:'Move files to external/cloud', d:'Move large media files, downloads, and old backups to an external drive or OneDrive/Google Drive.'},
+      {t:'Disable hibernation', d:'If you don\'t use hibernate, reclaim RAM-equivalent space:', code:'powercfg /h off'},
+    ],
+    missing_runtime: [
+      {t:'Note the exact DLL name', d:'The error dialog will show the exact file name (e.g. VCRUNTIME140.dll, MSVCP140.dll). This tells you which runtime is missing.'},
+      {t:'Install Visual C++ Redistributables', d:'Download and install all versions (2015–2022, both x64 and x86) from Microsoft: aka.ms/vs/17/release/vc_redist.x64.exe'},
+      {t:'Install .NET Framework', d:'Check the application documentation for required .NET version. Download from microsoft.com/net.'},
+      {t:'DirectX runtime', d:'For d3dx*.dll or xinput*.dll errors, install the DirectX End-User Runtime Web Installer from Microsoft.'},
+      {t:'Run SFC', d:'System file corruption can cause DLL errors:', code:'sfc /scannow'},
+      {t:'Avoid DLL download sites', d:'Never download DLLs from sites like dll-files.com or dlldump.com — they frequently bundle malware.'},
+    ],
+    malware: [
+      {t:'Disconnect from internet', d:'Unplug Ethernet cable and/or disable Wi-Fi immediately to prevent data exfiltration or further infection.'},
+      {t:'Boot Safe Mode', d:'Hold Shift → Restart → Troubleshoot → Advanced → Startup Settings → Safe Mode with Networking.'},
+      {t:'Windows Defender full scan', d:'In Safe Mode: Windows Security → Virus & threat protection → Quick scan dropdown → Full scan.'},
+      {t:'Run Malwarebytes', d:'Download Malwarebytes Free (malwarebytes.com), install, and run a full scan.'},
+      {t:'Run AdwCleaner', d:'For adware and browser hijackers, run AdwCleaner (from Malwarebytes).'},
+      {t:'Clean browser extensions', d:'Review all installed extensions in every browser. Remove anything you don\'t recognise.'},
+      {t:'Reset browser settings', d:'Chrome/Edge: Settings → Reset settings → Restore to defaults.'},
+      {t:'Change passwords', d:'From a CLEAN device, change passwords for all important accounts (email, banking, work).'},
+      {t:'Enable Windows Firewall', d:'Ensure it was not disabled by the malware: Control Panel → Windows Defender Firewall → Turn on.'},
+    ],
+    ransomware: [
+      {t:'⚠ CRITICAL INCIDENT', d:'This is a serious security incident. Follow these steps in exact order. Do not pay the ransom — there is no guarantee of recovery and it funds criminal activity.', warn:true},
+      {t:'Disconnect from ALL networks', d:'IMMEDIATELY unplug the Ethernet cable and disable Wi-Fi on all affected machines. Disconnect network shares.'},
+      {t:'Isolate all affected devices', d:'Identify every device on the same network segment. Disconnect them all to prevent spread.'},
+      {t:'Report to management', d:'Notify your IT security team, management, and legal team. GDPR/data protection laws may require reporting within 72 hours.'},
+      {t:'Identify the ransomware', d:'Visit id-ransomware.malwarehunterteam.com — upload a sample encrypted file or the ransom note to identify the variant.'},
+      {t:'Check for decryption tools', d:'Visit nomoreransom.org — free decryptors exist for many ransomware families.'},
+      {t:'Preserve forensic evidence', d:'Do NOT wipe machines yet. Forensic investigators need the original system state to determine infection vector.'},
+      {t:'Restore from backup', d:'If you have clean offline backups from before infection, restore from them. This is the most reliable recovery.'},
+      {t:'Wipe and rebuild if no backup', d:'If no backup exists, wipe all affected drives completely and rebuild from clean OS media.'},
+      {t:'Post-incident review', d:'Before reconnecting, conduct a full security audit: patch all systems, change all credentials, implement MFA.'},
+    ],
+    account_lockout: [
+      {t:'Wait or ask admin to unlock', d:'Lockout policies typically expire after 30 minutes. An administrator can unlock the account immediately via ADUC.'},
+      {t:'Check Event Viewer (Security)', d:'Event Viewer → Windows Logs → Security. Filter for Event ID 4625 (failed logon). The workstation name in the event identifies the source.', code:'Event ID: 4625'},
+      {t:'Check other devices', d:'Mobile phones, tablets, and home PCs configured with your old password keep retrying and trigger lockouts. Update credentials on all devices.'},
+      {t:'Check mapped drives and services', d:'Mapped network drives and Windows Services running as your account silently retry old passwords. Update credentials in both places.'},
+      {t:'Use LockoutStatus.exe', d:'Download Microsoft\'s LockoutStatus.exe tool to identify which domain controller is processing the lockout and the exact source.'},
+      {t:'Change password thoroughly', d:'After unlocking, change your password and update it everywhere: VPN client, email client, mapped drives, scheduled tasks, and services.'},
+    ],
+    account_compromise: [
+      {t:'⚠ Change password immediately', d:'From a CLEAN, uncompromised device — change the password before doing anything else.', warn:true},
+      {t:'Enable MFA now', d:'Enable Multi-Factor Authentication on the account immediately. This is the single most important protective action.'},
+      {t:'Review login history', d:'Check the account\'s sign-in activity log for unknown locations, devices, or times. Most email providers show this in account security settings.'},
+      {t:'Revoke all sessions', d:'Most email providers offer "Sign out all other sessions" or "Revoke all active sessions". Use it.'},
+      {t:'Check email rules', d:'Attackers frequently add auto-forward rules to silently copy all your incoming mail. Check Settings → Rules/Filters in your email client.'},
+      {t:'Scan the original device', d:'Run a full malware scan on the device you used when the compromise occurred before trusting it again.'},
+      {t:'Notify your contacts', d:'Warn contacts that your account sent phishing emails. They should not click any links received from you recently.'},
+      {t:'Report to IT security', d:'If a work account, report to your IT security team or MSSP immediately for incident response.'},
+    ],
+    firewall_blocking: [
+      {t:'Open Windows Firewall', d:'Press Win+R → type wf.msc → Enter. This opens the advanced firewall console.'},
+      {t:'Check existing rules', d:'Examine Inbound Rules and Outbound Rules for entries matching your application name or required port number.'},
+      {t:'Test by disabling firewall', d:'Temporarily disable to confirm the firewall is the cause:', code:'netsh advfirewall set allprofiles state off\n(Re-enable: netsh advfirewall set allprofiles state on)'},
+      {t:'Allow app through firewall', d:'Control Panel → Windows Defender Firewall → Allow an app or feature through Windows Defender Firewall.'},
+      {t:'Create a port rule', d:'In wf.msc: New Rule → Port → specify TCP/UDP port number → Allow the connection.'},
+      {t:'Check proxy settings', d:'', code:'netsh winhttp show proxy'},
+      {t:'Check third-party security suite', d:'Norton, McAfee, Bitdefender etc. have their own firewalls that override Windows Firewall. Check their application firewall settings too.'},
+    ],
+    printer_offline: [
+      {t:'Check printer hardware', d:'Confirm the printer is powered on, connected (USB or network), and not showing any error lights or paper jams.'},
+      {t:'Set as default printer', d:'Control Panel → Devices and Printers → right-click your printer → Set as default printer.'},
+      {t:'Clear print queue and restart spooler', d:'Run as Administrator:', code:'net stop spooler\ndel /Q /F /S %systemroot%\\System32\\spool\\PRINTERS\\*\nnet start spooler'},
+      {t:'Uncheck "Use Printer Offline"', d:'In Devices and Printers → double-click printer → Printer menu → ensure "Use Printer Offline" is unchecked.'},
+      {t:'Remove and re-add printer', d:'Delete the printer entirely from Devices and Printers, then add it again fresh.'},
+      {t:'Fix network printer IP', d:'If it\'s a network printer, confirm its IP address hasn\'t changed via DHCP. Update the printer port in Printer Properties → Ports.'},
+    ],
+    printer_driver: [
+      {t:'Download from manufacturer', d:'Go directly to the printer manufacturer\'s website (HP, Canon, Epson, Brother) and download the latest full driver package for your OS.'},
+      {t:'Fully uninstall current driver', d:'Devices and Printers → right-click → Remove device. Then open Print Management (printmanagement.msc) → Drivers → delete old driver.'},
+      {t:'Reboot then reinstall', d:'After the clean uninstall, reboot before installing the new driver package.'},
+      {t:'Check architecture match', d:'For shared network printers: ensure the server-side driver architecture (x64) matches the client OS architecture.'},
+      {t:'Add via IP address', d:'Instead of auto-discovery, add the printer manually via its IP address: Devices and Printers → Add a printer → The printer I want isn\'t listed → Add using TCP/IP address.'},
+    ],
+    email_send_fail: [
+      {t:'Confirm internet works', d:'Open a browser and load a website first to rule out basic connectivity.'},
+      {t:'Check SMTP settings', d:'Verify outgoing server settings match your provider:', code:'Port 587 — STARTTLS (recommended)\nPort 465 — SSL/TLS\nPort 25  — often blocked by ISPs'},
+      {t:'Re-enter credentials', d:'If you recently changed your password, update it in your email client. Re-enter even if it looks correct — saved passwords can become corrupted.'},
+      {t:'Clear stuck Outbox', d:'Open the Outbox folder, delete any large or stuck messages, and retry with a simple test message.'},
+      {t:'Rebuild Outlook profile', d:'For Outlook: Control Panel → Mail → Show Profiles → Add new profile. Set up fresh with your account.'},
+      {t:'Check App Password requirement', d:'If MFA is enabled on your account and you use a desktop email client, you may need to generate an App Password (from account security settings) instead of your regular password.'},
+      {t:'Check provider status', d:'Visit your email provider\'s status page (e.g. status.office365.com for Microsoft 365) to rule out an outage.'},
+    ],
+    email_recv_fail: [
+      {t:'Check mailbox quota', d:'Most providers show quota usage in webmail settings. Delete or archive old emails and empty the Deleted Items folder.'},
+      {t:'Check webmail', d:'Log in at webmail to confirm messages are arriving server-side. If yes, the issue is in your email client, not delivery.'},
+      {t:'Check Junk/Spam folder', d:'Legitimate mail is frequently filtered into Junk. Check, then mark as Not Junk to train the filter.'},
+      {t:'Verify IMAP/POP3 settings', d:'IMAP SSL: port 993. POP3 SSL: port 995. Confirm server name and these ports with your provider.'},
+      {t:'Check email rules', d:'A misconfigured rule could be moving or deleting incoming mail. Review all rules in Settings → Rules.'},
+      {t:'Ask sender to check NDR', d:'Ask the sender whether they received a bounce/Non-Delivery Report. The NDR contains the specific rejection reason.'},
+      {t:'Contact mail admin', d:'For corporate email: ask the mail admin to check the mail flow logs and MX record health.'},
+    ],
+    av_comms_issue: [
+      {t:'Check OS permissions', d:'Settings → Privacy & security → Microphone / Camera. Ensure the toggle is On and your app is listed and allowed.'},
+      {t:'Select correct device', d:'In Teams/Zoom settings: check that the correct microphone and camera are selected (not a virtual device or a disabled device).'},
+      {t:'Update audio and camera drivers', d:'Device Manager → Sound, video and game controllers / Cameras → right-click → Update driver.'},
+      {t:'Test in OS settings', d:'Settings → Bluetooth & devices → Camera / Sound to confirm the device works at OS level before blaming the app.'},
+      {t:'Close competing apps', d:'Other apps may hold exclusive access to the mic or camera (OBS, Discord, Skype). Close them all.'},
+      {t:'Reinstall the app', d:'Uninstall Teams/Zoom completely (including clearing %AppData%\\Microsoft\\Teams), reboot, and reinstall the latest version.'},
+      {t:'Check endpoint security', d:'Some corporate endpoint protection tools block camera access. Check with your IT admin.'},
+    ],
+  }
+};
+
+/* ================================================================
+   MYCIN CF ARITHMETIC
+   ================================================================ */
+function combineCF(cf1, cf2) {
+  if (cf1 >= 0 && cf2 >= 0) return cf1 + cf2 * (1 - cf1);
+  if (cf1 < 0  && cf2 < 0)  return cf1 + cf2 * (1 + cf1);
+  const denom = 1 - Math.min(Math.abs(cf1), Math.abs(cf2));
+  return denom === 0 ? 0 : (cf1 + cf2) / denom;
+}
+
+function scoreDiagnosis(diag, facts) {
+  let cf = null;
+  for (const sym of diag.symptoms) {
+    const answer = facts[sym.s]; // 1=yes, 0=no, undefined=unknown
+    let sc;
+    if (answer === undefined) sc = 0;
+    else if (answer === sym.e)  sc = sym.w;
+    else                        sc = -sym.w;
+    cf = cf === null ? sc : combineCF(cf, sc);
+  }
+  return cf === null ? 0 : cf;
+}
+
+/* ================================================================
+   SESSION STATE
+   ================================================================ */
+let facts = {};       // {symptomId: 1|0}
+let currentCat = -1;
+let pendingSymptoms = [];
+let symptomsQueue = [];
+let answeredCount = 0;
+let totalQuestions = 0;
+
+function resetSession() {
+  facts = {};
+  currentCat = -1;
+  pendingSymptoms = [];
+  symptomsQueue = [];
+  answeredCount = 0;
+  totalQuestions = 0;
+  showHome();
+}
+
+/* ================================================================
+   ROUTING
+   ================================================================ */
+function setActiveNav(id) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function showHome() {
+  setActiveNav('nav-home');
+  const cats = [
+    {id:0, icon:'wifi',    title:'Network & Connectivity', count:'6 diagnoses'},
+    {id:1, icon:'monitor', title:'Operating System',        count:'6 diagnoses'},
+    {id:2, icon:'cpu',     title:'Hardware',                count:'6 diagnoses'},
+    {id:3, icon:'code',    title:'Software & Applications', count:'4 diagnoses'},
+    {id:4, icon:'shield',  title:'Security & Malware',      count:'5 diagnoses'},
+    {id:5, icon:'printer', title:'Printers',                count:'2 diagnoses'},
+    {id:6, icon:'mail',    title:'Email & Communications',  count:'3 diagnoses'},
+  ];
+  const icons = {
+    wifi:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>`,
+    monitor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+    cpu:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>`,
+    code:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    shield:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    printer: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+    mail:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  };
+  document.getElementById('main').innerHTML = `
+    <div class="page-title">Smart IT Technical Support</div>
+    <div class="page-sub">Select a problem category below, or run a full diagnostic across all 32 diagnoses.</div>
+    <div class="home-grid">
+      ${cats.map(c => `
+        <div class="home-card" onclick="startCategory(${c.id})">
+          <div class="home-card-icon">${icons[c.icon]}</div>
+          <div class="home-card-title">${c.title}</div>
+          <div class="home-card-count">${c.count}</div>
+        </div>`).join('')}
+    </div>
+    <div class="full-diag-card" onclick="startCategory(7)">
+      <div>
+        <div class="fd-title">Run Full Diagnostic</div>
+        <div class="fd-sub">Check all 32 diagnoses across every category at once</div>
+      </div>
+      <div class="fd-arrow">→</div>
+    </div>`;
+}
+
+/* ================================================================
+   DIAGNOSIS FLOW
+   ================================================================ */
+const catNames = [
+  'Network & Connectivity','Operating System','Hardware',
+  'Software & Applications','Security & Malware','Printers','Email & Communications','Full Diagnostic'
+];
+const catNavId = ['nav-0','nav-1','nav-2','nav-3','nav-4','nav-5','nav-6','nav-0'];
+
+function startCategory(catId) {
+  currentCat = catId;
+  setActiveNav(catNavId[catId] || 'nav-home');
+
+  // Collect all unique symptoms for this category
+  const catDiags = catId === 7
+    ? KB.diagnoses
+    : KB.diagnoses.filter(d => d.cat === catId);
+
+  const symSet = new Set();
+  catDiags.forEach(d => d.symptoms.forEach(s => {
+    if (!(s.s in facts)) symSet.add(s.s);
+  }));
+  symptomsQueue = [...symSet];
+  answeredCount = 0;
+  totalQuestions = symptomsQueue.length;
+
+  if (symptomsQueue.length === 0) {
+    runDiagnosis();
+    return;
+  }
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (symptomsQueue.length === 0) {
+    renderDiagnosing();
+    setTimeout(runDiagnosis, 500);
+    return;
+  }
+  const sym = symptomsQueue[0];
+  const qText = KB.questions[sym] || sym;
+  const progress = totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0;
+
+  document.getElementById('main').innerHTML = `
+    <div class="cat-heading">
+      <div>
+        <h2>${catNames[currentCat]}</h2>
+        <p>Answer each question about your system's symptoms</p>
+      </div>
+    </div>
+    <div class="q-panel">
+      <div class="q-meta">
+        <span class="q-badge">Symptom Check</span>
+        <span class="q-counter">Question ${answeredCount + 1} of ${totalQuestions}</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${progress}%"></div>
+      </div>
+      <div class="q-text">${qText}</div>
+      <div class="q-hint">Answer based on what you can observe right now. Use "Not sure" if you can't check.</div>
+      <div class="q-buttons">
+        <button class="q-btn yes" onclick="answer(1)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Yes
+        </button>
+        <button class="q-btn no" onclick="answer(0)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          No
+        </button>
+        <button class="q-btn unk" onclick="answer(null)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Not sure
+        </button>
+      </div>
+    </div>`;
+}
+
+function answer(val) {
+  const sym = symptomsQueue.shift();
+  if (val !== null) facts[sym] = val;
+  answeredCount++;
+  renderQuestion();
+}
+
+function renderDiagnosing() {
+  document.getElementById('main').innerHTML = `
+    <div class="diagnosing">
+      <div class="spinner"></div>
+      <p>Analysing symptoms with certainty factors…</p>
+    </div>`;
+}
+
+/* ================================================================
+   RUN DIAGNOSES
+   ================================================================ */
+function runDiagnosis() {
+  const catDiags = currentCat === 7
+    ? KB.diagnoses
+    : KB.diagnoses.filter(d => d.cat === currentCat);
+
+  const results = catDiags
+    .map(d => ({ diag: d, cf: scoreDiagnosis(d, facts) }))
+    .filter(r => r.cf >= 0.30)
+    .sort((a, b) => b.cf - a.cf);
+
+  renderResults(results);
+}
+
+/* ================================================================
+   RENDER RESULTS
+   ================================================================ */
+function cfClass(cf) {
+  if (cf >= 0.75) return 'high';
+  if (cf >= 0.50) return 'mid';
+  return 'low';
+}
+function cfLabel(cf) {
+  if (cf >= 0.90) return 'Very High';
+  if (cf >= 0.75) return 'High';
+  if (cf >= 0.60) return 'Moderate';
+  if (cf >= 0.45) return 'Low-Moderate';
+  return 'Low';
+}
+
+function renderResults(results) {
+  const catDiags = currentCat === 7 ? KB.diagnoses : KB.diagnoses.filter(d => d.cat === currentCat);
+
+  let html = `<div class="results-header">
+    <h2>${results.length > 0 ? results.length + ' diagnosis found' : 'No diagnosis reached threshold'}</h2>
+    <p>${results.length > 0
+      ? 'Results ranked by confidence. Expand each card for step-by-step fix instructions.'
+      : 'Try answering "Not sure" instead of "No" for symptoms you could not check, then run again.'}</p>
+  </div>`;
+
+  if (results.length === 0) {
+    html += `<div class="no-results">
+      <h3>No strong match found</h3>
+      <p>The symptoms entered don't match any pattern above the 30% confidence threshold. Try a different category or run the Full Diagnostic.</p>
+    </div>`;
+  }
+
+  results.forEach((r, i) => {
+    const pct = Math.round(r.cf * 100);
+    const cls = cfClass(r.cf);
+    const lbl = cfLabel(r.cf);
+    const sol = KB.solutions[r.diag.id] || [];
+    const isCrit = r.diag.critical;
+
+    const stepsHtml = sol.map((step, si) => {
+      if (step.warn) {
+        return `<div class="step-item warning">⚠ ${step.t} — ${step.d}</div>`;
+      }
+      let inner = `<div><strong>${step.t}</strong>${step.d ? ' — ' + step.d : ''}</div>`;
+      if (step.code) inner += `<div class="step-code">${step.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+      return `<div class="step-item"><div class="step-num">${si + 1}</div><div>${inner}</div></div>`;
+    }).join('');
+
+    html += `
+    <div class="result-card${isCrit ? ' critical' : ''}" style="animation-delay:${i*0.06}s">
+      <div class="rc-head" onclick="toggleCard(this)">
+        <div class="rc-rank">${i+1}</div>
+        <div class="rc-info">
+          <div class="rc-name">${r.diag.name}</div>
+          <div class="rc-cf-row">
+            <div class="cf-bar-wrap"><div class="cf-bar ${cls}" style="width:${pct}%"></div></div>
+            <div class="cf-pct ${cls}">${pct}%</div>
+            <div class="cf-label ${cls}">${lbl}</div>
+          </div>
+        </div>
+        <div class="rc-toggle">⌄</div>
+      </div>
+      <div class="rc-body${i === 0 ? ' open' : ''}">
+        <div class="steps-title">Recommended Fix Steps</div>
+        ${stepsHtml}
+      </div>
+    </div>`;
+  });
+
+  html += `<div class="actions-bar">
+    <button class="btn-secondary" onclick="startCategory(${currentCat})">↺ Re-run this category</button>
+    <button class="btn-secondary" onclick="showHome()">← Back to categories</button>
+    <button class="btn-secondary" onclick="startCategory(7)">Run full diagnostic</button>
+  </div>`;
+
+  document.getElementById('main').innerHTML = html;
+
+  // Animate CF bars after paint
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.cf-bar').forEach(b => {
+      const w = b.style.width;
+      b.style.width = '0';
+      requestAnimationFrame(() => { b.style.width = w; });
+    });
+  });
+}
+
+function toggleCard(head) {
+  const body = head.nextElementSibling;
+  const toggle = head.querySelector('.rc-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+showHome();
+</script>
+</body>
+</html>
